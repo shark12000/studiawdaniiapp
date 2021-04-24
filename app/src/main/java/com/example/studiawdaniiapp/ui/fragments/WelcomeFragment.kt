@@ -22,6 +22,7 @@ class WelcomeFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
        binding = FragmentWelcomeBinding.inflate(inflater, container, false)
+
         return binding.root;
     }
 
