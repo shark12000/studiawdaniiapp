@@ -1,19 +1,11 @@
 package com.example.studiawdaniiapp.data.repository
 
-import androidx.lifecycle.LiveData
-import com.example.studiawdaniiapp.data.LiveData.UserLiveData
 import com.google.firebase.auth.FirebaseUser
+import io.reactivex.Completable
 
-
-class UserRepository() {
-    private var currentUser: UserLiveData = UserLiveData()
-
-    fun getCurrentUser(): LiveData<FirebaseUser> {
-        return currentUser
-    }
-
-//    fun signOut() {
-//        AuthUI.getInstance().signOut(app.applicationContext)
-//    }
-
+interface UserRepository {
+    fun login(email: String, password: String): Completable
+    fun register(email: String, password: String) : Completable
+    fun currentUser(): FirebaseUser?
+    fun logout()
 }
