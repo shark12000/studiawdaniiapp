@@ -9,68 +9,59 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.studiawdaniiapp.R
+import com.example.studiawdaniiapp.data.models.EmailPassword
+import com.example.studiawdaniiapp.data.models.Resource
 import com.example.studiawdaniiapp.databinding.FragmentLoginBinding
-import com.example.studiawdaniiapp.ui.AuthListener
-import com.example.studiawdaniiapp.viewmodel.AuthViewModel
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.example.studiawdaniiapp.ui.viewmodel.SignInViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment(), View.OnClickListener, KoinComponent, AuthListener {
-    var navController: NavController? = null;
+class LoginFragment : Fragment() {
+    private var navController: NavController? = null;
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: AuthViewModel by inject()
+    private val viewModel: SignInViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        viewModel.authListener = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        binding.registerBtn.setOnClickListener(this)
-
-        binding.errorId.text = ""
-        binding.passwordText.setText("")
-        binding.emailText.setText("")
-
+        binding.registerBtn.setOnClickListener {
+            login()
+        }
     }
 
     private fun login() {
         val email = binding.emailText.text.toString().trim()
         val password = binding.passwordText.text.toString().trim()
-
-        Toast.makeText(activity, "Hahah", Toast.LENGTH_SHORT).show()
-
-        if(email != "" && password != "") {
-            val result = viewModel.login(email, password)
-        } else {
-            Toast.makeText(activity, "AZAZAZZAZ", Toast.LENGTH_SHORT).show()
-        }
+        observeData(EmailPassword(email, password))
     }
 
-    override fun onClick(v: View?) {
-        when(v!!.id) {
-            R.id.register_btn -> login()
-        }
+    private fun observeData(emailPassword: EmailPassword) {
+        viewModel.signIn(emailPassword).observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.errorId.text = "Waiting..."
+                }
+                is Resource.Success -> {
+                    navController!!.navigate(R.id.action_loginFragment_to_lobbyFragment)
+                    binding.errorId.text = "Login passed successfully "
+                }
+                is Resource.Failure -> {
+                    binding.errorId.text = "Failure"
+                    Toast.makeText(
+                        context,
+                        "An error has occurred:${it.string}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 
-    override fun onStarted() {
-
-    }
-
-    override fun onSuccess(message: String) {
-        binding.errorId.text = message
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onFailure(message: String) {
-        binding.errorId.text = message
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
 }

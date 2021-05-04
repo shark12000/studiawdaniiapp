@@ -7,14 +7,7 @@ data class EducationalInstitution(
         val eduId: String,
         val educational_institution_name: String,
         val imageUrl: String
-) {
-        constructor() : this
-                (
-                "",
-                "",
-                ""
-                )
-}
+)
 
 
 

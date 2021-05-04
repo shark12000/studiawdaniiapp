@@ -9,7 +9,7 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.studiawdaniiapp.ui.fragments.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_registrationFragment2"
             app:destination="@id/registrationFragment" />
@@ -25,27 +25,51 @@
         android:id="@+id/loginFragment"
         android:name="com.example.studiawdaniiapp.ui.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_loginFragment_to_lobbyFragment"
+            app:destination="@id/lobbyFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.studiawdaniiapp.ui.fragments.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" >
+        tools:layout="@layout/fragment_registration">
         <action
-            android:id="@+id/action_registrationFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_registrationFragment_to_registrationDataFragment"
+            app:destination="@id/registrationDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.studiawdaniiapp.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/lobbyFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.LobbyFragment"
+        android:label="fragment_lobby"
+        tools:layout="@layout/fragment_lobby">
+        <action
+            android:id="@+id/action_lobbyFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_lobbyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/registrationDataFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.RegistrationDataFragment"
+        android:label="fragment_registration_data"
+        tools:layout="@layout/fragment_registration_data">
+        <action
+            android:id="@+id/action_registrationDataFragment_to_lobbyFragment"
+            app:destination="@id/lobbyFragment" />
+    </fragment>
 
 </navigation>

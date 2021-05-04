@@ -1,69 +1,98 @@
 package com.example.studiawdaniiapp.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.studiawdaniiapp.R
+import com.example.studiawdaniiapp.data.models.EmailPassword
+import com.example.studiawdaniiapp.data.models.Resource
 import com.example.studiawdaniiapp.databinding.FragmentRegistrationBinding
-import com.example.studiawdaniiapp.ui.AuthListener
-import com.example.studiawdaniiapp.viewmodel.AuthViewModel
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.example.studiawdaniiapp.ui.viewmodel.RegistrationViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegistrationFragment : Fragment(),  View.OnClickListener, AuthListener, KoinComponent {
+class RegistrationFragment : Fragment() {
     var navController: NavController? = null;
     private lateinit var binding: FragmentRegistrationBinding
-    private val viewModel: AuthViewModel by inject()
+    private val viewModel: RegistrationViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentRegistrationBinding.inflate(inflater, container, false)
 
-        viewModel.authListener = this
         return binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.registerBtn.setOnClickListener(this)
-
-        binding.emailText.setText("")
-        binding.passwordText.setText("")
-        binding.errorId.setText("")
+        navController = Navigation.findNavController(view)
+        binding.registerBtn.setOnClickListener {
+            register()
+        }
     }
 
     private fun register() {
         val email = binding.emailText.text.toString().trim()
         val password = binding.passwordText.text.toString().trim()
+        val repeatPassword = binding.repeatPasswordText.text.toString().trim()
         Toast.makeText(activity, "register btn pressed", Toast.LENGTH_SHORT).show()
-        viewModel.signup(email, password)
-    }
-
-    override fun onClick(v: View?) {
-        when(v!!.id) {
-            R.id.register_btn -> register()
+        if (password == repeatPassword) {
+            Toast.makeText(activity, "let's go!", Toast.LENGTH_SHORT).show()
+            observeData(EmailPassword(email, password))
+        } else {
+            binding.errorId.text = "password do not match, try again"
         }
     }
 
-    override fun onStarted() {
-
+    private fun observeData(emailPassword: EmailPassword) {
+        viewModel.registration(emailPassword).observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.errorId.text = "Waiting..."
+                }
+                is Resource.Success -> {
+                    //observeNotification()
+                    navController!!.navigate(R.id.action_registrationFragment_to_registrationDataFragment)
+                    binding.errorId.text = it.data.toString()
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Failure -> {
+                    binding.errorId.text = it.string
+                    Toast.makeText(
+                        context,
+                        "An error has occurred:${it.string}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 
-    override fun onSuccess(message: String) {
-        binding.errorId.text = message
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
+    private fun observeNotification() {
+        viewModel.sendEmailVerification().observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Loading -> {
 
-    override fun onFailure(message: String) {
-        binding.errorId.text = message
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Success -> {
+                    Toast.makeText(context, "Notification was send", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Failure -> {
+                    Toast.makeText(
+                        context,
+                        "An error has occurred:${it.string}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 }
 

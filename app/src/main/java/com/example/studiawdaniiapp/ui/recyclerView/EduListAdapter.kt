@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studiawdaniiapp.data.models.EducationalInstitution
 import com.example.studiawdaniiapp.databinding.LayoutListitemBinding
 
-class EduListAdapter(var eduList: List<EducationalInstitution>) :
+class EduListAdapter(private var educationalInstitutionsList: MutableList<EducationalInstitution> = mutableListOf()) :
     RecyclerView.Adapter<EduListAdapter.EduViewHolder>() {
 
-    inner class EduViewHolder(private val binding: LayoutListitemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class EduViewHolder(private val binding: LayoutListitemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(educationalInstitution: EducationalInstitution) {
-            binding.universityName.setText(educationalInstitution.educational_institution_name)
-            //binding.image.setImageBitmap(decode(educationalInstitution.imageUrl))
+            binding.universityName.text = educationalInstitution.educational_institution_name
         }
     }
 
@@ -20,17 +20,23 @@ class EduListAdapter(var eduList: List<EducationalInstitution>) :
         parent: ViewGroup,
         viewType: Int
     ): EduViewHolder {
-
-        val binding = LayoutListitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EduViewHolder(binding)
+        val binding =
+            LayoutListitemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return EduViewHolder(binding = binding)
     }
 
     override fun onBindViewHolder(holder: EduViewHolder, position: Int) {
-        holder.bind(eduList.get(position))
+        holder.bind(educationalInstitution = educationalInstitutionsList[position])
     }
 
     override fun getItemCount(): Int {
-        return eduList.size
+        return educationalInstitutionsList.size
+    }
+
+    fun setEducationalInstitutionsList(educationalInstitutionsList: MutableList<EducationalInstitution>) {
+        this.educationalInstitutionsList.clear()
+        this.educationalInstitutionsList.addAll(educationalInstitutionsList)
+        notifyDataSetChanged()
     }
 }
 
