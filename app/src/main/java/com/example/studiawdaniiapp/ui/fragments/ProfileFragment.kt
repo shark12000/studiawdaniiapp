@@ -34,7 +34,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
             navController = Navigation.findNavController(view)
-            Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, viewModel.toString(), Toast.LENGTH_SHORT).show()
             observeProfileData()
             observeFirebaseData()
         }

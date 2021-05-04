@@ -14,11 +14,11 @@ val firebaseModule = module {
 }
 
 val repositoryModule = module {
-    factory<IUserRepo> { UserRepo(firebase = get()) }
-    factory<IUserSignIn> { UserSignInRepo(firebase = get()) }
-    factory<IProfileRepo> { ProfileRepo(firebase = get()) }
-    factory<IUserRegistrationRepo> { UserRegistrationRepo(firebase = get()) }
-    factory<IEducationalInstitutionsRepo> { EducationalInstitutionsRepo() }
+    single <IUserRepo> { UserRepo(firebase = get()) }
+    single <IUserSignIn> { UserSignInRepo(firebase = get()) }
+    single <IProfileRepo> { ProfileRepo(firebase = get()) }
+    single <IUserRegistrationRepo> { UserRegistrationRepo(firebase = get()) }
+    single <IEducationalInstitutionsRepo> { EducationalInstitutionsRepo() }
 }
 
 val useCaseModule = module {
