@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "354621364862",
+    "firebase_url": "https://stiudiawdanii-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "stiudiawdanii",
+    "storage_bucket": "stiudiawdanii.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354621364862:android:18b2c107bece363ddfd62f",
+        "android_client_info": {
+          "package_name": "com.example.studiawdaniiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354621364862-tnlb0r1fmn4t04c4qahjcbrjpmn8hl3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studiawdaniiapp",
+            "certificate_hash": "c45ff322196f8b994d0d7024c832c9ce6de8c9e0"
+          }
+        },
+        {
+          "client_id": "354621364862-96gjeporktgtubgcrbgjd9ci4eqfj2ud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCupLt2bkAnJ-1jB2tICWfaFDEZBvS8fVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354621364862-96gjeporktgtubgcrbgjd9ci4eqfj2ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

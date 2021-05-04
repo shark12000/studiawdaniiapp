@@ -1,7 +1,8 @@
-package com.example.studiawdaniiapp
+package com.example.studiawdaniiapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.studiawdaniiapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
