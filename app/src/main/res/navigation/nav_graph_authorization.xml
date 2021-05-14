@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_authorization"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.authorization.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_registrationFragment2"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.authorization.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_nav_graph_home"
+            app:destination="@id/nav_graph_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_nav_graph_admin"
+            app:destination="@id/nav_graph_admin" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.authorization.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_registrationDataFragment"
+            app:destination="@id/registrationDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationDataFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.authorization.registrationData.RegistrationDataFragment"
+        android:label="fragment_registration_data"
+        tools:layout="@layout/fragment_registration_data" >
+        <action
+            android:id="@+id/action_registrationDataFragment_to_nav_graph_home"
+            app:destination="@id/nav_graph_home" />
+    </fragment>
+    <include app:graph="@navigation/nav_graph_home" />
+    <include app:graph="@navigation/nav_graph_admin" />
+</navigation>

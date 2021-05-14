@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.LobbyFragment">
+    tools:context=".ui.fragments.home.lobby.LobbyFragment">
 
 
     <fragment
@@ -43,7 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/fragment"
-        tools:layout_editor_absoluteX="70dp" />
+        tools:layout_editor_absoluteX="70dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/genderText"
@@ -52,33 +53,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneText"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="70dp" />
+        tools:layout_editor_absoluteX="70dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/lastNameText"
-        tools:layout_editor_absoluteX="70dp" />
+        tools:layout_editor_absoluteX="70dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/lastNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/firstNameText"
-        tools:layout_editor_absoluteX="70dp" />
+        tools:layout_editor_absoluteX="70dp"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        app:itemIconTint="#ffff"
+        app:itemTextColor="#ffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/profileButton"
+        android:id="@+id/signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:text="Profile"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="12dp"
+        android:text="Sign Out"
+        app:layout_constraintBottom_toTopOf="@+id/fragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
+        app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment"
-        app:layout_constraintVertical_bias="0.933" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        tools:ignore="UnknownId" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

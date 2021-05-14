@@ -1,8 +1,8 @@
 package com.example.studiawdaniiapp.data.repository
 
 import com.example.studiawdaniiapp.data.firebase.FirebaseSource
-import com.example.studiawdaniiapp.data.models.EmailPassword
-import com.example.studiawdaniiapp.data.models.Resource
+import com.example.studiawdaniiapp.domain.models.EmailPassword
+import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.domain.repository.IUserRegistrationRepo
 import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.tasks.await

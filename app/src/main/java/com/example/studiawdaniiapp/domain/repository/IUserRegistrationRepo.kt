@@ -1,7 +1,7 @@
 package com.example.studiawdaniiapp.domain.repository
 
-import com.example.studiawdaniiapp.data.models.EmailPassword
-import com.example.studiawdaniiapp.data.models.Resource
+import com.example.studiawdaniiapp.domain.models.EmailPassword
+import com.example.studiawdaniiapp.domain.models.Resource
 import com.google.firebase.auth.AuthResult
 
 interface IUserRegistrationRepo {
