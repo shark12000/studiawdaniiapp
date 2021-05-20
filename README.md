@@ -26,5 +26,4 @@
 - As an administrator, I would like to chat with user
 
 -------------------------------------------------------------------------------------------------------------------------------
-                                             Link to the video
                                            https://www.youtube.com/watch?v=PDyKeNEqccA
