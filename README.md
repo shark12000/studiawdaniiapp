@@ -13,11 +13,11 @@
 - [x] As an administrator, I would like to login
 
 ## Should have:
-- [] As a user, I would like to have nice UX and UI
+- [ ] As a user, I would like to have nice UX and UI
 - [x] As a user, I would like to see my profile
-- [] As a user, I would like to edit my profile
-- [] As an administrator, I would like to keep history of applications
-- [] As an administrator, I would like to be notified when the user has sent the application
+- [ ] As a user, I would like to edit my profile
+- [ ] As an administrator, I would like to keep history of applications
+- [ ] As an administrator, I would like to be notified when the user has sent the application
 
 ## Will not have:
 - As a user, I would like to change password
