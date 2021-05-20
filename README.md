@@ -2,7 +2,7 @@
 ## Application intended to help automate work for administrators and help students to apply for study programmes easier and faster. 
 
 ## Must have:
-- As a user, I would like to apply for university.
+- [x] As a user, I would like to apply for university.
 - As a user, I would like to apply for a few programmes.
 - As a user, I would like to get more information about specific university
 - As a user, I would like to get information about university programmes
