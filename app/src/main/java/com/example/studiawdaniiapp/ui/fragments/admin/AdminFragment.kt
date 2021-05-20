@@ -1,5 +1,6 @@
 package com.example.studiawdaniiapp.ui.fragments.admin
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studiawdaniiapp.R
 import com.example.studiawdaniiapp.databinding.FragmentAdminBinding
 
 import com.example.studiawdaniiapp.domain.models.Resource
@@ -40,12 +42,14 @@ class AdminFragment : Fragment() {
         setupAdapter()
         observeData()
         onButtonClicked()
+        onLogOutButtonPressed()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.signOut()
+    private fun onLogOutButtonPressed() {
+        binding.logout.setOnClickListener() {
+            viewModel.signOut()
+            navController.setGraph(R.navigation.nav_graph_authorization)
+        }
     }
 
     private fun setupAdapter() {
@@ -80,12 +84,6 @@ class AdminFragment : Fragment() {
                     adapter.setList(it.data)
                 }
                 is Resource.Failure -> {
-                    binding.errorId.text = it.string
-                    Toast.makeText(
-                        context,
-                        it.string,
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
             }
         })

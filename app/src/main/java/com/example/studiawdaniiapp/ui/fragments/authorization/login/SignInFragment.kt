@@ -49,7 +49,6 @@ class SignInFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     observeAdminLiveData()
-                    binding.errorId.text = "Login passed successfully "
 
                 }
                 is Resource.Failure -> {

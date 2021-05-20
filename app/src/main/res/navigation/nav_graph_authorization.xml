@@ -9,9 +9,9 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.studiawdaniiapp.ui.fragments.authorization.welcome.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome"
-        app:popUpTo="@id/nav_graph_home"
-        app:popUpToInclusive="true">
+        tools:layout="@layout/fragment_welcome">
+<!--        app:popUpTo="@id/nav_graph_home"-->
+<!--        app:popUpToInclusive="true">-->
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
