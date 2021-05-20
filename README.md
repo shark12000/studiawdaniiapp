@@ -1,6 +1,6 @@
 # studiawdaniiapp!
 
-(![logo_studiawdanii](https://user-images.githubusercontent.com/57730002/119052546-6cd0f580-b9cd-11eb-9ecb-cc8f47224dd1.png))
+![logo_studiawdanii](https://user-images.githubusercontent.com/57730002/119052546-6cd0f580-b9cd-11eb-9ecb-cc8f47224dd1.png)
 
 ## Application intended to help automate work for administrators and help students to apply for study programmes easier and faster. 
 
