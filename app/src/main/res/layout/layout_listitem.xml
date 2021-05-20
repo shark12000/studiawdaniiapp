@@ -23,7 +23,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnknownId" />
 
     <Button
         android:id="@+id/see_button"
@@ -43,7 +44,7 @@
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="description"
+        android:text="@string/description"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="@+id/guideline3"

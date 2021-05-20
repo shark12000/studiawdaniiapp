@@ -10,22 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:id="@+id/relLayout1"
-        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/relLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
 
-        <include layout="@layout/snippet_search_toolbar"/>
-        <include layout="@layout/snippet_view_contact_toolbar"/>
+            <include layout="@layout/snippet_search_toolbar" />
+
+            <include layout="@layout/snippet_view_contact_toolbar" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@+id/relLayout1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relLayout1">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -38,17 +39,16 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="25sp"
                 android:id="@+id/textNoContacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:textColor="@android:color/black"
-                android:layout_height="wrap_content" />
+                android:textSize="25sp" />
 
         </RelativeLayout>
 
     </RelativeLayout>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

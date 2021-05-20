@@ -9,7 +9,7 @@ import com.example.studiawdaniiapp.domain.models.DataToReceive
 class AdminAdapter(private var list: MutableList<DataToReceive> = mutableListOf()) :
     RecyclerView.Adapter<AdminAdapter.ProgrammeViewHolder>() {
 
-    var clicked: onButtonClicked? = null
+    var clicked: OnButtonClicked? = null
 
     inner class ProgrammeViewHolder(private val binding: AdminDataItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -55,7 +55,7 @@ class AdminAdapter(private var list: MutableList<DataToReceive> = mutableListOf(
         notifyDataSetChanged()
     }
 
-    fun setOnButtonItemClickListener(clickListener: onButtonClicked) {
+    fun setOnButtonItemClickListener(clickListener: OnButtonClicked) {
         clicked = clickListener
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,9 +24,9 @@
                 android:layout_height="120dp"
                 android:layout_margin="9dp"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/photo"
                 android:padding="3dp"
-                android:scaleType="centerInside"
-                android:contentDescription="Photo" />
+                android:scaleType="centerInside" />
 
         </RelativeLayout>
 
@@ -56,9 +55,9 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside">
 
@@ -71,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rellay1"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal" />
 
 
     <RelativeLayout
@@ -84,8 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -96,9 +95,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="13sp"
-                    android:textColor="@color/red"/>
+                    android:text="@string/email"
+                    android:textColor="@color/red"
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/email_text"
@@ -125,7 +124,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phone"
+                    android:text="@string/phone"
                     android:textColor="@color/red"
                     android:textSize="13sp" />
 
@@ -154,7 +153,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="First Name"
+                    android:text="@string/first_name"
                     android:textColor="@color/red"
                     android:textSize="13sp" />
 
@@ -183,7 +182,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Second Name"
+                    android:text="@string/second_name"
                     android:textColor="@color/red"
                     android:textSize="13sp" />
 
@@ -205,7 +204,6 @@
 
 
         </LinearLayout>
-
     </RelativeLayout>
 
 </RelativeLayout>

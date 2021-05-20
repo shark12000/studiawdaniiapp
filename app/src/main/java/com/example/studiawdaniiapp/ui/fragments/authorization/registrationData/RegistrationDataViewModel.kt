@@ -1,11 +1,12 @@
 package com.example.studiawdaniiapp.ui.fragments.authorization.registrationData
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.studiawdaniiapp.domain.IUser
 import com.example.studiawdaniiapp.domain.models.ProfileData
 import com.example.studiawdaniiapp.domain.models.Resource
-import com.example.studiawdaniiapp.domain.repository.IUserRepo
-import com.squareup.okhttp.Dispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

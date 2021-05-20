@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">studiawdaniiapp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="sign_in">Sign in</string>
     <string name="register">Register</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
     <string name="hint">hint</string>
@@ -12,9 +10,38 @@
     <string name="contacts">Contacts</string>
     <string name="university_name">university_name</string>
     <string name="more_information">more information</string>
-    <string name="status">Status</string>
     <string name="registration">Registration</string>
-    <string name="email">email</string>
     <string name="in_order_to_proceed_your_application_you_have_to_provide_more_detailed_information">In order to proceed your application you have to provide more detailed information</string>
     <string name="sign_out">Sign Out</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="logout">Logout</string>
+    <string name="education">education:</string>
+    <string name="list_of_selected_programmes">List of selected programmes</string>
+    <string name="send">send</string>
+    <string name="data_not_provided">data not provided</string>
+    <string name="fill">Fill</string>
+    <string name="welcome">Welcome!</string>
+    <string name="status">Status</string>
+    <string name="enter_you_data_to_login_to_the_system">Enter you data to login to the system</string>
+    <string name="signin">signIn</string>
+    <string name="photo">Photo</string>
+    <string name="email">email</string>
+    <string name="phone">Phone</string>
+    <string name="first_name">First Name</string>
+    <string name="second_name">Second Name</string>
+    <string name="Register">register</string>
+    <string name="password">password</string>
+    <string name="repeat_password">repeat password</string>
+    <string name="provide_your_data">Provide your data</string>
+    <string name="last_name">last name</string>
+    <string name="male">male</string>
+    <string name="phone_number">phone number</string>
+    <string name="apply">Apply</string>
+    <string name="textview">TextView</string>
+    <string name="description">description</string>
+    <string name="programme_type">programme_type</string>
+    <string name="city">city</string>
+    <string name="programme_name">programme_name</string>
+    <string name="todo">TODO</string>
 </resources>

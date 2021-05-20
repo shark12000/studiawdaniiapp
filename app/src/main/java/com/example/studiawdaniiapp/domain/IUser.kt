@@ -1,7 +1,6 @@
 package com.example.studiawdaniiapp.domain
 
 import com.example.studiawdaniiapp.domain.models.ProfileData
-import com.example.studiawdaniiapp.domain.models.Programme
 import com.example.studiawdaniiapp.domain.models.Resource
 
 interface IUser {

@@ -1,6 +1,6 @@
 package com.example.studiawdaniiapp.ui.fragments.admin
 
-interface onButtonClicked {
+interface OnButtonClicked {
     fun onCancelButtonPressed(index: Int)
     fun onAcceptButtonPressed(index: Int)
 }

@@ -45,14 +45,13 @@ class SignInFragment : Fragment() {
         viewModel.signInLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
-                    binding.errorId.text = "Waiting..."
                 }
                 is Resource.Success -> {
                     observeAdminLiveData()
 
                 }
                 is Resource.Failure -> {
-                    binding.errorId.text = "Failure"
+                    binding.errorId.text = it.string
                 }
             }
         })
@@ -62,7 +61,6 @@ class SignInFragment : Fragment() {
     private fun observeAdminLiveData() {
         viewModel.isAdmin()
         viewModel.isAdminLiveData.observe(viewLifecycleOwner, {
-            // TODO
             if (it) {
                 navController.navigate(R.id.action_loginFragment_to_nav_graph_admin)
             } else {

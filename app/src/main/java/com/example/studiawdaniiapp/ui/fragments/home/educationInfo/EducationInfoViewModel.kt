@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studiawdaniiapp.domain.IProgramme
 import com.example.studiawdaniiapp.domain.IStatus
-import com.example.studiawdaniiapp.domain.IUser
 import com.example.studiawdaniiapp.domain.models.DataToSend
 import com.example.studiawdaniiapp.domain.models.Programme
 import com.example.studiawdaniiapp.domain.models.Resource

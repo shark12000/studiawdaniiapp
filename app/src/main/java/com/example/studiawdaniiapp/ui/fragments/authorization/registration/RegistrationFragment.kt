@@ -19,8 +19,8 @@ class RegistrationFragment : Fragment() {
     private val viewModel: RegistrationViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegistrationBinding.inflate(inflater, container, false)
 
@@ -45,19 +45,18 @@ class RegistrationFragment : Fragment() {
     private fun observeData(emailPassword: EmailPassword, repeatPassword: String) {
         viewModel.registration(emailPassword, repeatPassword)
         viewModel.registrationLiveData
-            .observe(viewLifecycleOwner, {
-                when (it) {
-                    is Resource.Loading -> {
-                        binding.errorId.text = "Waiting..."
+                .observe(viewLifecycleOwner, {
+                    when (it) {
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Success -> {
+                            navController.navigate(R.id.action_registrationFragment_to_registrationDataFragment)
+                        }
+                        is Resource.Failure -> {
+                            binding.errorId.text = it.string
+                        }
                     }
-                    is Resource.Success -> {
-                        navController.navigate(R.id.action_registrationFragment_to_registrationDataFragment)
-                    }
-                    is Resource.Failure -> {
-                        binding.errorId.text = it.string
-                    }
-                }
-            })
+                })
     }
 }
 

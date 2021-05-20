@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/programme_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,7 +13,7 @@
         android:id="@+id/programmeType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="programme_type"
+        android:text="@string/programme_type"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/programmeName" />
 
@@ -22,7 +21,7 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="description"
+        android:text="@string/description"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/city" />
 
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="city"
+        android:text="@string/city"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/programmeType" />
 
@@ -39,7 +38,7 @@
         android:id="@+id/button2"
         android:layout_width="337dp"
         android:layout_height="42dp"
-        android:text="Apply"
+        android:text="@string/apply"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -48,7 +47,7 @@
         android:id="@+id/programmeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="programme_name"
+        android:text="@string/programme_name"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="TextView"
+        android:text="@string/textview"
         app:layout_constraintStart_toEndOf="@+id/programmeType"
         app:layout_constraintTop_toTopOf="@+id/programmeType" />
 

@@ -8,15 +8,24 @@ import kotlinx.coroutines.tasks.await
 
 class AdminRepo(private val firebaseSource: FirebaseSource) : IAdminRepo {
 
+    companion object {
+        private const val DATA_TO_SEND_COLLECTION = "user_data_to_send"
+        private const val STEP_ONE_STATUS_COLLECTION = "step_one_status"
+        private const val USER_COLLECTION = "users"
+        private const val ANSWERED = "answered"
+        private const val STATUS_FIELD = "status"
+        private const val FIRST_NAME_FIELD = "firstName"
+    }
+
     override suspend fun getSentData(): Resource<List<DataToReceive>> {
         try {
             val list = mutableListOf<DataToReceive>()
             val result = firebaseSource.getFirebaseFirestoreCollection()
-                .collection("user_data_to_send")
+                .collection(DATA_TO_SEND_COLLECTION)
                 .get()
                 .await()
             for (doc in result) {
-                val boolean: Boolean = doc.getBoolean("answered")!!
+                val boolean: Boolean = doc.getBoolean(ANSWERED)!!
                 if (!boolean) {
                     val data = doc.toObject(DataToReceive::class.java)
                     val dataToReceive = DataToReceive(
@@ -38,25 +47,25 @@ class AdminRepo(private val firebaseSource: FirebaseSource) : IAdminRepo {
     override suspend fun setStatus(status: String, userID: String, documentID: String) {
 
         firebaseSource.getFirebaseFirestoreCollection()
-            .collection("user_data_to_send")
+            .collection(DATA_TO_SEND_COLLECTION)
             .document(documentID)
-            .update("answered", true)
+            .update(ANSWERED, true)
             .await()
 
 
         firebaseSource.getFirebaseFirestoreCollection()
-            .collection("step_one_status")
+            .collection(STEP_ONE_STATUS_COLLECTION)
             .document(userID)
             .update(
-                "status", status
+                STATUS_FIELD, status
             )
             .await()
     }
 
     private suspend fun getUserNameByUserID(userID: String): String {
         val result = firebaseSource.getFirebaseFirestoreCollection()
-            .collection("users").document(userID).get().await()
+            .collection(USER_COLLECTION).document(userID).get().await()
 
-        return result.getString("firstName")!!
+        return result.getString(FIRST_NAME_FIELD)!!
     }
 }

@@ -11,7 +11,7 @@ class UserSignInRepo(private val firebase: FirebaseSource) : IUserSignInRepo {
     override suspend fun signIn(emailPassword: EmailPassword): Resource<Boolean> {
         return if (firebase.getFirebaseAuth().currentUser == null) {
             val result = firebase.getFirebaseAuth()
-                .signInWithEmailAndPassword(emailPassword.email, emailPassword.password).await()
+                    .signInWithEmailAndPassword(emailPassword.email, emailPassword.password).await()
 
             val resultBoolean: Boolean = result.user?.email == emailPassword.email
 
@@ -23,7 +23,7 @@ class UserSignInRepo(private val firebase: FirebaseSource) : IUserSignInRepo {
     override suspend fun isAdmin(): Boolean {
         val firebaseUser = firebase.getFirebaseAuth().currentUser
         val db = firebase.getFirebaseFirestoreCollection().collection("users").document(firebaseUser!!.uid).get()
-            .await()
+                .await()
 
         val role = db.getString("role")!!
         if (role != "admin") {

@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.studiawdaniiapp.R
-import com.example.studiawdaniiapp.domain.models.ProfileData
-import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.databinding.FragmentRegistrationDataBinding
+import com.example.studiawdaniiapp.domain.models.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -22,8 +21,8 @@ class RegistrationDataFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegistrationDataBinding.inflate(inflater, container, false)
 
@@ -48,16 +47,15 @@ class RegistrationDataFragment : Fragment() {
         val lastName = binding.editTextLastName.text.toString().trim()
         val phoneNumber = binding.editTextPhone2.text.toString().trim()
         updateUser(
-            firstName = firstName,
-            lastName = lastName,
-            mobilePhone = phoneNumber
+                firstName = firstName,
+                lastName = lastName,
+                mobilePhone = phoneNumber
         )
     }
 
 
-
     private fun updateUser(firstName: String, lastName: String, mobilePhone: String) {
-        viewModel.updateProfileData(firstName = firstName, lastName =  lastName, mobilePhone = mobilePhone)
+        viewModel.updateProfileData(firstName = firstName, lastName = lastName, mobilePhone = mobilePhone)
         navController.navigate(R.id.action_registrationDataFragment_to_nav_graph_home)
     }
 

@@ -1,18 +1,15 @@
 package com.example.studiawdaniiapp.ui.fragments.admin
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studiawdaniiapp.R
 import com.example.studiawdaniiapp.databinding.FragmentAdminBinding
-
 import com.example.studiawdaniiapp.domain.models.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -59,7 +56,7 @@ class AdminFragment : Fragment() {
 
     private fun onButtonClicked() {
         adapter.setOnButtonItemClickListener(object :
-            onButtonClicked {
+            OnButtonClicked {
             override fun onCancelButtonPressed(index: Int) {
                 val item = adapter.getItem(index)
                 viewModel.setStatus(CANCEL, item.userID, item.id)

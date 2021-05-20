@@ -1,6 +1,5 @@
 package com.example.studiawdaniiapp.domain
 
-import android.util.Log
 import com.example.studiawdaniiapp.domain.models.ProfileData
 import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.domain.repository.IUserRepo

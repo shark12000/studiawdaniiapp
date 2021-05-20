@@ -12,11 +12,11 @@ class UserRepo(private val firebase: FirebaseSource) : IUserRepo {
 
     override suspend fun getUser(): Resource<ProfileData> {
         try {
-            if(user==null) {
+            if (user == null) {
                 val firebaseUser = firebase.getFirebaseAuth().currentUser
                 val db = firebase.getFirebaseFirestoreCollection().collection("users")
-                    .document(firebaseUser!!.uid).get()
-                    .await()
+                        .document(firebaseUser!!.uid).get()
+                        .await()
 
                 val firstName = db.getString("firstName")
                 val secondName = db.getString("secondName")
@@ -26,12 +26,12 @@ class UserRepo(private val firebase: FirebaseSource) : IUserRepo {
                 val id = firebaseUser.uid
 
                 user = ProfileData(
-                    id = id,
-                    firstName = firstName!!,
-                    secondName = secondName!!,
-                    mobilePhone = mobilePhone!!,
-                    role = role!!,
-                    email = email!!
+                        id = id,
+                        firstName = firstName!!,
+                        secondName = secondName!!,
+                        mobilePhone = mobilePhone!!,
+                        role = role!!,
+                        email = email!!
                 )
             }
             return Resource.Success(user!!)
@@ -43,14 +43,14 @@ class UserRepo(private val firebase: FirebaseSource) : IUserRepo {
     override suspend fun updateUser(profileData: ProfileData) {
         val user = firebase.getFirebaseAuth().currentUser;
         val ref =
-            firebase.getFirebaseFirestoreCollection().collection("users").document(user!!.uid)
+                firebase.getFirebaseFirestoreCollection().collection("users").document(user!!.uid)
         val profile = ProfileData(
-            mobilePhone = profileData.mobilePhone,
-            firstName = profileData.firstName,
-            secondName = profileData.secondName,
-            role = profileData.role,
-            email = user.email!!,
-            id = user.uid)
+                mobilePhone = profileData.mobilePhone,
+                firstName = profileData.firstName,
+                secondName = profileData.secondName,
+                role = profileData.role,
+                email = user.email!!,
+                id = user.uid)
         ref.set(profile).await()
     }
 
