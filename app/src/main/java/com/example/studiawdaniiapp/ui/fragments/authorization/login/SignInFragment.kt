@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.studiawdaniiapp.R
+import com.example.studiawdaniiapp.databinding.FragmentLoginBinding
 import com.example.studiawdaniiapp.domain.models.EmailPassword
 import com.example.studiawdaniiapp.domain.models.Resource
-import com.example.studiawdaniiapp.databinding.FragmentLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment() {
-    private var navController: NavController? = null;
+class SignInFragment : Fragment() {
+    private lateinit var navController: NavController
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: SignInViewModel by viewModel()
 
@@ -30,42 +29,45 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        binding.registerBtn.setOnClickListener {
-            login()
+        onSignInButtonPressed()
+    }
+
+    private fun onSignInButtonPressed() {
+        binding.signInBtn.setOnClickListener {
+            val email = binding.emailText.text.toString().trim()
+            val password = binding.passwordText.text.toString().trim()
+            signIn(EmailPassword(email = email, password = password))
         }
     }
 
-    private fun login() {
-        val email = binding.emailText.text.toString().trim()
-        val password = binding.passwordText.text.toString().trim()
-
-        observeData(EmailPassword(email, password))
-    }
-
-
-    private fun observeData(emailPassword: EmailPassword){
-        viewModel.signIn(emailPassword).observe(viewLifecycleOwner, {
+    private fun signIn(emailPassword: EmailPassword) {
+        viewModel.signIn(emailPassword = emailPassword)
+        viewModel.signInLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
                     binding.errorId.text = "Waiting..."
                 }
                 is Resource.Success -> {
-                    if(!it.data.isAdmin && it.data.authorizationResult) {
-                        navController!!.navigate(R.id.action_loginFragment_to_nav_graph_home)
-                    } else if(it.data.isAdmin && it.data.authorizationResult)
-                    {
-                        navController!!.navigate(R.id.action_loginFragment_to_nav_graph_admin)
-                    }
+                    observeAdminLiveData()
                     binding.errorId.text = "Login passed successfully "
+
                 }
                 is Resource.Failure -> {
                     binding.errorId.text = "Failure"
-                    Toast.makeText(
-                        context,
-                        "An error has occurred:${it.string}",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
+            }
+        })
+
+    }
+
+    private fun observeAdminLiveData() {
+        viewModel.isAdmin()
+        viewModel.isAdminLiveData.observe(viewLifecycleOwner, {
+            // TODO
+            if (it) {
+                navController.navigate(R.id.action_loginFragment_to_nav_graph_admin)
+            } else {
+                navController.navigate(R.id.action_loginFragment_to_nav_graph_home)
             }
         })
     }

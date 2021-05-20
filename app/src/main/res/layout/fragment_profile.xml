@@ -39,7 +39,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
             android:fontFamily="sans-serif-light"
-            android:text="Joey Tribbiani"
             android:textColor="@color/white"
             android:textSize="32sp" />
 
@@ -51,7 +50,6 @@
             android:layout_below="@+id/tv_name"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
-            android:text="new york, usa"
             android:textAllCaps="true"
             android:textSize="14sp" />
 
@@ -106,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="#000000"
+                    android:textColor="@color/red"
                     android:textSize="18sp" />
 
                 <View

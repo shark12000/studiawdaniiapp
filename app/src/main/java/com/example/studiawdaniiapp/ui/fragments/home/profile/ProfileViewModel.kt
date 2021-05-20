@@ -1,35 +1,26 @@
 package com.example.studiawdaniiapp.ui.fragments.home.profile
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.example.studiawdaniiapp.domain.models.ProfileData
 import com.example.studiawdaniiapp.domain.models.Resource
-import com.example.studiawdaniiapp.domain.repository.IProfileRepo
 import com.example.studiawdaniiapp.domain.repository.IUserRepo
-import com.google.firebase.auth.FirebaseUser
-import java.lang.Exception
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-    private val repository: IProfileRepo,
-    private val userRepository: IUserRepo
+    private val repository: IUserRepo
 ) : ViewModel() {
-    fun getCurrentUser() = liveData<Resource<FirebaseUser?>> {
-        emit(Resource.Loading())
-        try {
-            val result = userRepository.getFirebaseUser()
-            emit(result)
-        } catch (e: Exception) {
-            emit(Resource.Failure(e.message.toString()))
-        }
-    }
 
-    fun getUserProfileData() = liveData<Resource<ProfileData>> {
-        emit(Resource.Loading())
-        try {
-            val result = userRepository.getUser()
-            emit(result)
-        } catch (e: Exception) {
-            emit(Resource.Failure(e.message.toString()))
+    private val mutableUserLiveData = MutableLiveData<Resource<ProfileData>>()
+    val userLiveData: LiveData<Resource<ProfileData>> get() = mutableUserLiveData
+
+    fun getUserProfileData() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val result = repository.getUser()
+            mutableUserLiveData.postValue(result)
         }
     }
 }

@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_lobby" >
         <action
             android:id="@+id/action_lobbyFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            />
+        <action
+            android:id="@+id/action_lobbyFragment_to_educationInfoFragment"
+            app:destination="@id/educationInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -45,4 +49,9 @@
         app:nullable="true"
         android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/educationInfoFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.home.educationInfo.EducationInfoFragment"
+        android:label="fragment_education_info"
+        tools:layout="@layout/fragment_education_info" />
 </navigation>

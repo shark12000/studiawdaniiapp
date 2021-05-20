@@ -9,20 +9,19 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.studiawdaniiapp.ui.fragments.authorization.welcome.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        tools:layout="@layout/fragment_welcome"
+        app:popUpTo="@id/nav_graph_home"
+        app:popUpToInclusive="true">
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_welcomeFragment_to_registrationFragment2"
-            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.studiawdaniiapp.ui.fragments.authorization.login.LoginFragment"
+        android:name="com.example.studiawdaniiapp.ui.fragments.authorization.login.SignInFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

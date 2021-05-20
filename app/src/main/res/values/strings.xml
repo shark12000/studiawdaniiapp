@@ -3,9 +3,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="sign_in">Sign in</string>
     <string name="register">Register</string>
-    <string name="password">password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
     <string name="hint">hint</string>
+    <string name="search_item">Search Item</string>
+    <string name="serchimage">serchImage</string>
+    <string name="contacts">Contacts</string>
+    <string name="university_name">university_name</string>
+    <string name="more_information">more information</string>
+    <string name="status">Status</string>
+    <string name="registration">Registration</string>
+    <string name="email">email</string>
+    <string name="in_order_to_proceed_your_application_you_have_to_provide_more_detailed_information">In order to proceed your application you have to provide more detailed information</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

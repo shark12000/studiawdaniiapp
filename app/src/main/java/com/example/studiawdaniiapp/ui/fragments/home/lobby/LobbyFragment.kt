@@ -10,8 +10,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.example.studiawdaniiapp.R
-import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.databinding.FragmentLobbyBinding
+import com.example.studiawdaniiapp.domain.models.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LobbyFragment : Fragment() {
@@ -31,52 +31,56 @@ class LobbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
-
-
-
         binding.bottomNavigationMenu.setupWithNavController(navController)
+        onSignOutButtonClicked()
+        onSubmitButtonPressed()
+        observeData()
+        observeStatus()
+    }
+
+    private fun onSubmitButtonPressed() {
+        binding.submitButton.setOnClickListener() {
+            navController.navigate(R.id.action_lobbyFragment_to_educationInfoFragment)
+        }
+    }
+
+    private fun onSignOutButtonClicked() {
         binding.signout.setOnClickListener {
             signOut()
         }
-        observeData()
-        observe()
     }
 
-    fun signOut() {
-        viewModel.signOut().observe(viewLifecycleOwner, {
-            if(it == true) {
-                navController.setGraph(R.navigation.nav_graph_authorization)
-            } else {
-                Toast.makeText(context, "Error occured", Toast.LENGTH_LONG).show()
-            }
-        })
+    private fun signOut() {
+        viewModel.signOut()
+        navController.setGraph(R.navigation.nav_graph_authorization)
     }
 
-
-    fun observeData() {
-        viewModel.getCurrentUser().observe(viewLifecycleOwner, {
+    private fun observeStatus() {
+        viewModel.getStatus()
+        viewModel.statusLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
-                    Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Success -> {
+                    binding.statusText.text = it.data.status.trim()
+                    binding.submitButton.visibility = View.GONE
+
                 }
                 is Resource.Failure -> {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, it.string, Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
 
-    fun observe() {
-        viewModel.getUserProfileData().observe(viewLifecycleOwner, {
+    private fun observeData() {
+        viewModel.getUserProfileData()
+        viewModel.userLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
-                    Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Success -> {
-                    binding.nameText.text = it.data.firstName
-                    Toast.makeText(context, it.data.firstName, Toast.LENGTH_SHORT).show()
+                    binding.firstNameText.text = it.data.firstName
                 }
                 is Resource.Failure -> {
                     Toast.makeText(context, it.string, Toast.LENGTH_SHORT).show()

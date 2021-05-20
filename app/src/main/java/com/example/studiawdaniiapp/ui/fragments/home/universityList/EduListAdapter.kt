@@ -1,22 +1,20 @@
 package com.example.studiawdaniiapp.ui.fragments.home.universityList
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.studiawdaniiapp.domain.models.EducationalInstitution
 import com.example.studiawdaniiapp.databinding.LayoutListitemBinding
-import java.util.*
+import com.example.studiawdaniiapp.domain.models.EducationalInstitution
+import java.util.Locale
 import kotlin.collections.ArrayList
 
 class EduListAdapter(
-    private var educationalInstitutionsList: MutableList<EducationalInstitution> = mutableListOf(),
+    private var educationalInstitutionsList: MutableList<EducationalInstitution> = mutableListOf()
 ) :
     RecyclerView.Adapter<EduListAdapter.EduViewHolder>() {
     private lateinit var binding: LayoutListitemBinding
     var itemClickListener: OnItemClickListener? = null
     private var educationalInstitutionsFilterList = ArrayList<EducationalInstitution>()
-    private val TAG = "EduListAdapter"
 
     inner class EduViewHolder(
         private val binding: LayoutListitemBinding
@@ -25,6 +23,7 @@ class EduListAdapter(
 
         fun bind(educationalInstitution: EducationalInstitution) {
             binding.universityName.text = educationalInstitution.educationalInstitutionName
+            binding.descriptionText.text = educationalInstitution.description
 
             binding.seeButton.setOnClickListener {
                 itemClickListener?.onItemClick(absoluteAdapterPosition)
@@ -57,7 +56,7 @@ class EduListAdapter(
         return educationalInstitutionsList[position]
     }
 
-    fun setEducationalInstitutionsList(educationalInstitutionsList: MutableList<EducationalInstitution>) {
+    fun setEducationalInstitutionsList(educationalInstitutionsList: List<EducationalInstitution>) {
         this.educationalInstitutionsList.clear()
         this.educationalInstitutionsList.addAll(educationalInstitutionsList)
         educationalInstitutionsFilterList.addAll(educationalInstitutionsList)
@@ -75,7 +74,6 @@ class EduListAdapter(
                 if (university.educationalInstitutionName.toLowerCase(Locale.ROOT)
                         .contains(characterTextLine)
                 ) {
-                    Log.d(TAG, university.educationalInstitutionName)
                     educationalInstitutionsList.add(university)
                 }
             }

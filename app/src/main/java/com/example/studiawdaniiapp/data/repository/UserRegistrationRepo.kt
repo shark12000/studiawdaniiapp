@@ -4,20 +4,20 @@ import com.example.studiawdaniiapp.data.firebase.FirebaseSource
 import com.example.studiawdaniiapp.domain.models.EmailPassword
 import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.domain.repository.IUserRegistrationRepo
-import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.tasks.await
 
 class UserRegistrationRepo(private val firebase: FirebaseSource) : IUserRegistrationRepo {
 
-    override suspend fun registration(emailPassword: EmailPassword): Resource<AuthResult> {
-        val authResult = firebase.getFirebaseAuth()
-            .createUserWithEmailAndPassword(emailPassword.email, emailPassword.password).await();
-        return Resource.Success(authResult)
-    }
+    override suspend fun registration(emailPassword: EmailPassword): Resource<Boolean> {
+        return try {
+            val result = firebase.getFirebaseAuth()
+                .createUserWithEmailAndPassword(emailPassword.email, emailPassword.password).await();
 
-    override suspend fun sendEmailVerification(): Resource<Void?> {
-        val result = firebase.getFirebaseAuth().currentUser?.sendEmailVerification()?.await()
-        return Resource.Success(result)
-    }
+            val resultBoolean: Boolean = result.user?.email == emailPassword.email
 
+             Resource.Success(resultBoolean)
+        } catch (e: Exception) {
+             Resource.Failure(e.toString())
+        }
+    }
 }

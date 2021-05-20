@@ -6,7 +6,7 @@ data class EducationalInstitution(
         @DocumentId
         val eduId: String,
         val educationalInstitutionName: String,
-        val imageUrl: String,
+        val description: String
 )
 
 

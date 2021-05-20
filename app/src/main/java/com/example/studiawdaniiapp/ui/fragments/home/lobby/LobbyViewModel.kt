@@ -1,36 +1,42 @@
 package com.example.studiawdaniiapp.ui.fragments.home.lobby
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.example.studiawdaniiapp.domain.models.ProfileData
 import com.example.studiawdaniiapp.domain.models.Resource
+import com.example.studiawdaniiapp.domain.models.StepOneStatus
+import com.example.studiawdaniiapp.domain.repository.IStatusRepo
 import com.example.studiawdaniiapp.domain.repository.IUserRepo
-import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class LobbyViewModel(private val repository: IUserRepo) : ViewModel() {
+class LobbyViewModel(private val repository: IUserRepo, private val useCase: IStatusRepo) : ViewModel() {
 
-    fun getCurrentUser() = liveData<Resource<FirebaseUser?>> {
-        emit(Resource.Loading())
-        try {
-            val result = repository.getFirebaseUser()
-            emit(result)
-        } catch (e: Exception) {
-            emit(Resource.Failure(e.message.toString()))
+    private val mutableUserLiveData = MutableLiveData<Resource<ProfileData>>()
+    val userLiveData: LiveData<Resource<ProfileData>> get() = mutableUserLiveData
+
+    private val mutableStatusLiveData = MutableLiveData<Resource<StepOneStatus>>()
+    val statusLiveData: LiveData<Resource<StepOneStatus>> get() = mutableStatusLiveData
+
+    fun getStatus() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val result = useCase.getStatus()
+            mutableStatusLiveData.postValue(result)
         }
     }
 
-    fun getUserProfileData() = liveData<Resource<ProfileData>> {
-        emit(Resource.Loading())
-        try {
+    fun getUserProfileData() {
+        viewModelScope.launch(Dispatchers.Default) {
             val result = repository.getUser()
-            emit(result)
-        } catch (e: Exception) {
-            emit(Resource.Failure(e.message.toString()))
+            mutableUserLiveData.postValue(result)
         }
     }
 
-    fun signOut() = liveData<Boolean> {
-        val result = repository.logout()
-        emit(result)
+    fun signOut() {
+        viewModelScope.launch(Dispatchers.Default) {
+            repository.logout()
+        }
     }
 }

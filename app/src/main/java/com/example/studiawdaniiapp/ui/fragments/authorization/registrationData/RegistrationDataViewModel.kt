@@ -1,20 +1,38 @@
 package com.example.studiawdaniiapp.ui.fragments.authorization.registrationData
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.example.studiawdaniiapp.domain.IUser
 import com.example.studiawdaniiapp.domain.models.ProfileData
 import com.example.studiawdaniiapp.domain.models.Resource
-import com.example.studiawdaniiapp.domain.repository.IProfileRepo
+import com.example.studiawdaniiapp.domain.repository.IUserRepo
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class RegistrationDataViewModel(private val repository: IProfileRepo) : ViewModel() {
+class RegistrationDataViewModel(private val useCase: IUser) : ViewModel() {
+    private val mutableProfileLiveData = MutableLiveData<Resource<ProfileData>>()
+    val profileLiveData: LiveData<Resource<ProfileData>> get() = mutableProfileLiveData
 
-    fun addData(profileData: ProfileData) = liveData<Resource<Void?>> {
-        emit(Resource.Loading())
-        try {
-            val result = repository.updateProfile(profileData)
-            emit(result)
-        } catch (e: Exception) {
-            emit(Resource.Failure(e.message.toString()))
+    fun updateProfileData(firstName: String, lastName: String, mobilePhone: String) {
+        viewModelScope.launch(Dispatchers.Default) {
+
+            val profileData = ProfileData(
+                firstName = firstName,
+                secondName = lastName,
+                mobilePhone = mobilePhone,
+                id = null,
+                role = "user",
+                email = null
+            )
+
+            useCase.updateUser(profileData)
+        }
+    }
+
+    fun getUser() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val result = useCase.getUser()
+            mutableProfileLiveData.postValue(result)
         }
     }
 }

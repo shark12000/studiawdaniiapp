@@ -13,14 +13,13 @@ import com.example.studiawdaniiapp.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment(), View.OnClickListener {
 
-    var navController: NavController? = null;
+    private lateinit var navController: NavController;
     private lateinit var binding: FragmentWelcomeBinding;
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false)
 
         return binding.root;
@@ -36,8 +35,8 @@ class WelcomeFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.login_btn -> navController!!.navigate(R.id.action_welcomeFragment_to_loginFragment)
-            R.id.register_btn -> navController!!.navigate(R.id.action_welcomeFragment_to_registrationFragment)
+            R.id.login_btn -> navController.navigate(R.id.action_welcomeFragment_to_loginFragment)
+            R.id.register_btn -> navController.navigate(R.id.action_welcomeFragment_to_registrationFragment)
         }
     }
 }

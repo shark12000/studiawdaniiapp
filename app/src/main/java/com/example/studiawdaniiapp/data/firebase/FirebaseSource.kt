@@ -1,7 +1,6 @@
 package com.example.studiawdaniiapp.data.firebase
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirebaseSource {
@@ -9,7 +8,7 @@ class FirebaseSource {
         return FirebaseAuth.getInstance()
     }
 
-    fun getFirebaseFirestoreCollection(collection: String): CollectionReference {
-        return FirebaseFirestore.getInstance().collection(collection)
+    fun getFirebaseFirestoreCollection(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 }

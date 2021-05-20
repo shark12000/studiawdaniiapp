@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class RegistrationDataFragment : Fragment() {
-    private var navController: NavController? = null;
+    private lateinit var navController: NavController
     private lateinit var binding: FragmentRegistrationDataBinding
     private val viewModel: RegistrationDataViewModel by viewModel()
 
@@ -33,35 +33,41 @@ class RegistrationDataFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        observeUser()
+        onRegistrationButtonPressed()
+    }
+
+    private fun onRegistrationButtonPressed() {
         binding.continueButton.setOnClickListener {
-            next()
+            provideProfileData()
         }
     }
 
-    fun next() {
+    private fun provideProfileData() {
         val firstName = binding.editTextFirstName.text.toString().trim()
         val lastName = binding.editTextLastName.text.toString().trim()
         val phoneNumber = binding.editTextPhone2.text.toString().trim()
-        val role = "user"
-        observeData(
-            ProfileData(
-                id = null,
-                firstName = firstName,
-                secondName = lastName,
-                mobilePhone = phoneNumber,
-                role = role
-            )
+        updateUser(
+            firstName = firstName,
+            lastName = lastName,
+            mobilePhone = phoneNumber
         )
     }
 
-    fun observeData(profileData: ProfileData) {
-        viewModel.addData(profileData).observe(viewLifecycleOwner, {
+
+
+    private fun updateUser(firstName: String, lastName: String, mobilePhone: String) {
+        viewModel.updateProfileData(firstName = firstName, lastName =  lastName, mobilePhone = mobilePhone)
+        navController.navigate(R.id.action_registrationDataFragment_to_nav_graph_home)
+    }
+
+    private fun observeUser() {
+        viewModel.getUser()
+        viewModel.profileLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
-                    Toast.makeText(context, "Laoding...", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Success -> {
-                    navController!!.navigate(R.id.action_registrationDataFragment_to_nav_graph_home)
                 }
                 is Resource.Failure -> {
                     binding.errorText.text = it.string
@@ -70,6 +76,4 @@ class RegistrationDataFragment : Fragment() {
             }
         })
     }
-
-
 }
