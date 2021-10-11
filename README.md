@@ -27,5 +27,4 @@
 - As a user, I would like to chat with administrator
 - As an administrator, I would like to chat with user
 
--------------------------------------------------------------------------------------------------------------------------------
-                                           https://www.youtube.com/watch?v=PDyKeNEqccA
+
