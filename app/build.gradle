@@ -38,10 +38,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-    repositories {
-        jcenter()
-    }
 }
 
 dependencies {
@@ -73,20 +69,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.google.firebase:firebase-firestore:23.0.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
 
     // Koin
-    def koin_version = "2.2.1"
-    implementation "org.koin:koin-core:$koin_version"
-    implementation "org.koin:koin-core-ext:$koin_version"
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-    implementation "org.koin:koin-androidx-scope:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-    implementation "org.koin:koin-androidx-fragment:$koin_version"
-    implementation "org.koin:koin-androidx-workmanager:$koin_version"
-    implementation "org.koin:koin-androidx-compose:$koin_version"
-    implementation "org.koin:koin-androidx-ext:$koin_version"
+    def koin_version = "2.2.2"
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-core-ext:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
+    implementation "io.insert-koin:koin-androidx-scope:$koin_version"
+    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
+    implementation "io.insert-koin:koin-androidx-fragment:$koin_version"
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
+    implementation "io.insert-koin:koin-androidx-ext:$koin_version"
 
     //recycleview
     implementation "androidx.recyclerview:recyclerview:1.2.0"

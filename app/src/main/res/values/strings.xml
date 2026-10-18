@@ -44,4 +44,5 @@
     <string name="city">city</string>
     <string name="programme_name">programme_name</string>
     <string name="todo">TODO</string>
+    <string name="continue_label">Continue</string>
 </resources>
