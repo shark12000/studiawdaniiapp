@@ -14,7 +14,7 @@ import com.example.studiawdaniiapp.ui.fragments.home.lobby.LobbyViewModel
 import com.example.studiawdaniiapp.ui.fragments.home.profile.ProfileViewModel
 import com.example.studiawdaniiapp.ui.fragments.home.universityInfo.UniversityInfoViewModel
 import com.example.studiawdaniiapp.ui.fragments.home.universityList.EduViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val firebaseModule = module {
