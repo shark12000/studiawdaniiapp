@@ -7,16 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.studiawdaniiapp.domain.models.EmailPassword
 import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.domain.repository.IUserRegistrationRepo
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel(private val repository: IUserRegistrationRepo) : ViewModel() {
+class RegistrationViewModel(private val repository: IUserRegistrationRepo, private val dispatcher: CoroutineDispatcher = Dispatchers.Default) : ViewModel() {
 
     private val mutableRegistrationLiveData = MutableLiveData<Resource<Boolean>>()
     val registrationLiveData: LiveData<Resource<Boolean>> get() = mutableRegistrationLiveData
 
     fun registration(emailPassword: EmailPassword, repeatPassword: String) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(dispatcher) {
             if(emailPassword.password == repeatPassword) {
                 val result = repository.registration(emailPassword)
                 mutableRegistrationLiveData.postValue(result)

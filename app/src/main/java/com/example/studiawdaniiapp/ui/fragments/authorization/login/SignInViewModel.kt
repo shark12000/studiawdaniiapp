@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.studiawdaniiapp.domain.models.EmailPassword
 import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.domain.repository.IUserSignInRepo
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SignInViewModel(private val repository: IUserSignInRepo) : ViewModel() {
+class SignInViewModel(private val repository: IUserSignInRepo, private val dispatcher: CoroutineDispatcher = Dispatchers.Default) : ViewModel() {
 
     private val mutableSignInLiveData = MutableLiveData<Resource<Boolean>>()
     val signInLiveData: LiveData<Resource<Boolean>> get() = mutableSignInLiveData
@@ -19,7 +20,7 @@ class SignInViewModel(private val repository: IUserSignInRepo) : ViewModel() {
     val isAdminLiveData: LiveData<Boolean> get() = mutableIsAdminLiveData
 
     fun signIn(emailPassword: EmailPassword) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(dispatcher) {
             val result = repository.signIn(emailPassword)
             mutableSignInLiveData.postValue(result)
         }

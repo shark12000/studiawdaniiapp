@@ -4,10 +4,11 @@ import androidx.lifecycle.*
 import com.example.studiawdaniiapp.domain.IProgramme
 import com.example.studiawdaniiapp.domain.models.Programme
 import com.example.studiawdaniiapp.domain.models.Resource
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UniversityInfoViewModel(private val stateHandle: SavedStateHandle, private val useCase: IProgramme) : ViewModel() {
+class UniversityInfoViewModel(private val stateHandle: SavedStateHandle, private val useCase: IProgramme, private val dispatcher: CoroutineDispatcher = Dispatchers.Default) : ViewModel() {
 
     companion object {
         private const val PROGRAMMES = "programmes"
@@ -31,14 +32,14 @@ class UniversityInfoViewModel(private val stateHandle: SavedStateHandle, private
     }
 
     fun getUserProfileData(universityID: String) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(dispatcher) {
             val result = useCase.getProgrammesByUniversityID(universityID)
             mutableProgrammeLiveData.postValue(result)
         }
     }
 
     fun selectProgramme(programmeID: String) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(dispatcher) {
             val result = useCase.selectProgramme(programmeID)
             mutableBooleanLiveData.postValue(result)
         }
