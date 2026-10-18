@@ -1,0 +1,119 @@
+rules_version = '2';
+
+// Firestore rules for the studiawdaniiapp Android app.
+//
+// Replaces the console's catch-all "any signed-in user can read and write
+// everything" rule. Each block lists the app's own reads and writes it has to
+// allow, so a change in the app's data access needs a matching change here.
+//
+// Admins are users whose users/{uid}.role is "admin". That role is set by hand
+// in the Firebase console and can never be written from the app.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // The fields changed by an update.
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // ProfileData, written in full with set() by UserRepo.updateUser.
+    // `id` is a @DocumentId, so the SDK leaves it out; it is allowed in case it shows up.
+    function validProfile(uid) {
+      let d = request.resource.data;
+      return d.keys().hasAll(['firstName', 'secondName', 'mobilePhone', 'email', 'role'])
+        && d.keys().hasOnly(['firstName', 'secondName', 'mobilePhone', 'email', 'role', 'id'])
+        && d.firstName is string
+        && d.secondName is string
+        && d.mobilePhone is string
+        && d.email is string
+        && d.email.lower() == request.auth.token.email.lower()
+        && (!('id' in d) || d.id == uid);
+    }
+
+    // Profiles. Students read and write only their own; admins read any (AdminRepo
+    // looks up the applicant's first name). Registration always writes role "user",
+    // and no one can change a role from the app.
+    match /users/{uid} {
+      allow get: if isSelf(uid) || isAdmin();
+      allow create: if isSelf(uid) && validProfile(uid) && request.resource.data.role == 'user';
+      allow update: if isSelf(uid) && validProfile(uid)
+        && request.resource.data.role == resource.data.get('role', 'user');
+      allow list, delete: if false;
+    }
+
+    // Catalog, maintained in the console. Read-only for every signed-in user.
+    match /university_info/{id} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+    match /progrmmes/{id} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+    match /junction_programme_university/{id} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    // A student's selected programmes (ProgrammeRepo: select, list, remove).
+    match /user_programmes_university/{id} {
+      allow read: if signedIn() && resource.data.userID == request.auth.uid;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['userID', 'programmeID'])
+        && request.resource.data.userID == request.auth.uid
+        && request.resource.data.programmeID is string;
+      allow delete: if signedIn() && resource.data.userID == request.auth.uid;
+      allow update: if false;
+    }
+
+    // Sent applications. A student creates one unanswered application and can
+    // read their own (the one-per-student check). Admins list all of them and can
+    // only flip `answered` to true.
+    match /user_data_to_send/{id} {
+      allow read: if (signedIn() && resource.data.userID == request.auth.uid) || isAdmin();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['dataToSend', 'userID', 'answered'])
+        && request.resource.data.userID == request.auth.uid
+        && request.resource.data.answered == false
+        && request.resource.data.dataToSend is map
+        && request.resource.data.dataToSend.keys().hasOnly(['education', 'programmes'])
+        && request.resource.data.dataToSend.education is string
+        && request.resource.data.dataToSend.programmes is list;
+      allow update: if isAdmin()
+        && changedKeys().hasOnly(['answered'])
+        && request.resource.data.answered == true;
+      allow delete: if false;
+    }
+
+    // Application status, one document per student, keyed by uid.
+    // Students can only ever write "Sent". The app rewrites it on every Send,
+    // even after an answer, so overwriting Accepted/Cancelled with "Sent" stays
+    // allowed for now (fixed in the app in task 1.5). Only admins can write
+    // Accepted or Cancelled.
+    match /step_one_status/{uid} {
+      allow read: if (signedIn() && resource.data.userID == request.auth.uid) || isAdmin();
+      allow create, update: if isSelf(uid)
+        && request.resource.data.keys().hasOnly(['status', 'userID'])
+        && request.resource.data.userID == uid
+        && request.resource.data.status == 'Sent';
+      allow update: if isAdmin()
+        && changedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['Accepted', 'Cancelled'];
+      allow delete: if false;
+    }
+  }
+}

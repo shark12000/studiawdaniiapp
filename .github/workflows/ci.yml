@@ -35,3 +35,30 @@ jobs:
             app/build/reports/
             app/build/test-results/
           if-no-files-found: ignore
+
+  firestore-rules:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: rules-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      # The Firestore emulator needs Java 21 or newer.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: rules-tests/package-lock.json
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Rules tests (Firestore emulator)
+        run: npm test
