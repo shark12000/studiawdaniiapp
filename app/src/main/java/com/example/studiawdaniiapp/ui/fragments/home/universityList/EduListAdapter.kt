@@ -64,14 +64,14 @@ class EduListAdapter(
     }
 
     fun filtering(characterText: String) {
-        val characterTextLine = characterText.toLowerCase(Locale.getDefault())
+        val characterTextLine = characterText.lowercase(Locale.getDefault())
         educationalInstitutionsList.clear()
         if (characterTextLine.isEmpty()) {
             educationalInstitutionsList.addAll(educationalInstitutionsFilterList)
         } else {
             educationalInstitutionsList.clear()
             for (university in educationalInstitutionsFilterList) {
-                if (university.educationalInstitutionName.toLowerCase(Locale.ROOT)
+                if (university.educationalInstitutionName.lowercase(Locale.ROOT)
                         .contains(characterTextLine)
                 ) {
                     educationalInstitutionsList.add(university)
