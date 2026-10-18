@@ -35,6 +35,11 @@ android {
         jvmTarget = '1.8'
     }
 
+    lint {
+        // Existing issues are recorded here; CI fails only on new ones
+        baseline = file("lint-baseline.xml")
+    }
+
     buildFeatures {
         viewBinding = true
     }
