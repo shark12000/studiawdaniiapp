@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
         searchUniversities.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 val text: String =
-                    searchUniversities.text.toString().toLowerCase(Locale.getDefault())
+                    searchUniversities.text.toString().lowercase(Locale.getDefault())
                 adapter.filtering(text)
             }
 
