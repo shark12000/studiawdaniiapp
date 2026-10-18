@@ -79,7 +79,6 @@ dependencies {
 
     // Koin
     implementation libs.koin.android
-    implementation libs.koin.androidx.workmanager
 
     //recycleview
     implementation libs.androidx.recyclerview
