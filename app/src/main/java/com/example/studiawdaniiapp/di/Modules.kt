@@ -14,18 +14,26 @@ import com.example.studiawdaniiapp.ui.fragments.home.lobby.LobbyViewModel
 import com.example.studiawdaniiapp.ui.fragments.home.profile.ProfileViewModel
 import com.example.studiawdaniiapp.ui.fragments.home.universityInfo.UniversityInfoViewModel
 import com.example.studiawdaniiapp.ui.fragments.home.universityList.EduViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
+/** Firebase SDK singletons; their own wiring lives inside getInstance(). */
+val firebaseSdkModule = module {
+    single { FirebaseAuth.getInstance() }
+    single { FirebaseFirestore.getInstance() }
+}
+
 val firebaseModule = module {
-    single { FirebaseSource() }
+    single { FirebaseSource(auth = get(), firestore = get()) }
 }
 
 val repositoryModule = module {
     single <IUserRepo> { UserRepo(firebase = get()) }
     single <IUserSignInRepo> { UserSignInRepo(firebase = get()) }
     single <IUserRegistrationRepo> { UserRegistrationRepo(firebase = get()) }
-    single <IEducationalInstitutionsRepo> { EducationalInstitutionsRepo() }
+    single <IEducationalInstitutionsRepo> { EducationalInstitutionsRepo(firebaseSource = get()) }
     single <IProgrammeRepo> { ProgrammeRepo(firebaseSource = get()) }
     single <IAdminRepo> { AdminRepo(firebaseSource = get())}
     single <IStatusRepo> { StatusRepo(firebaseSource = get()) }
@@ -47,12 +55,15 @@ val viewModelModule = module {
     viewModel { RegistrationDataViewModel(useCase = get()) }
     viewModel { ProfileViewModel(repository = get()) }
     viewModel { MainViewModel(repository = get()) }
-    viewModel { UniversityInfoViewModel(get(), get()) }
+    viewModel { UniversityInfoViewModel(stateHandle = get(), useCase = get()) }
     viewModel { EducationInfoViewModel(useCase = get(), useCaseStatus = get()) }
     viewModel { AdminViewModel(useCase = get(), useCaseUser = get()) }
 }
 
-
-
-
-
+val appModules = listOf(
+    firebaseSdkModule,
+    repositoryModule,
+    viewModelModule,
+    firebaseModule,
+    useCaseModule
+)
