@@ -3,12 +3,15 @@ package com.example.studiawdaniiapp.data.firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirebaseSource {
+class FirebaseSource(
+    private val auth: FirebaseAuth,
+    private val firestore: FirebaseFirestore
+) {
     fun getFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
+        return auth
     }
 
     fun getFirebaseFirestoreCollection(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
+        return firestore
     }
 }
