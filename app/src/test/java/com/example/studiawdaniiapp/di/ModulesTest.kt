@@ -8,7 +8,8 @@ import com.example.studiawdaniiapp.domain.IStatus
 import com.example.studiawdaniiapp.domain.IUser
 import com.example.studiawdaniiapp.domain.repository.IAdminRepo
 import com.example.studiawdaniiapp.domain.repository.IEducationalInstitutionsRepo
-import com.example.studiawdaniiapp.domain.repository.IProgrammeRepo
+import com.example.studiawdaniiapp.domain.repository.IProgrammeApplicationRepo
+import com.example.studiawdaniiapp.domain.repository.IProgrammeCatalogRepo
 import com.example.studiawdaniiapp.domain.repository.IStatusRepo
 import com.example.studiawdaniiapp.domain.repository.IUserRegistrationRepo
 import com.example.studiawdaniiapp.domain.repository.IUserRepo
@@ -60,7 +61,8 @@ class ModulesTest {
         koin.get<IUserSignInRepo>()
         koin.get<IUserRegistrationRepo>()
         koin.get<IEducationalInstitutionsRepo>()
-        koin.get<IProgrammeRepo>()
+        koin.get<IProgrammeCatalogRepo>()
+        koin.get<IProgrammeApplicationRepo>()
         koin.get<IAdminRepo>()
         koin.get<IStatusRepo>()
 

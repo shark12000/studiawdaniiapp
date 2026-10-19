@@ -4,8 +4,7 @@ import com.example.studiawdaniiapp.domain.models.DataToSend
 import com.example.studiawdaniiapp.domain.models.Programme
 import com.example.studiawdaniiapp.domain.models.Resource
 
-interface IProgrammeRepo{
-    suspend fun getProgrammesByUniversityID(universityID: String) : Resource<List<Programme>>
+interface IProgrammeApplicationRepo {
     suspend fun getProgrammesByUserID() : Resource<List<Programme>>
     suspend fun selectProgramme(programmeID: String) : Boolean
     suspend fun removeProgramme(programmeID: String)
