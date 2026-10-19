@@ -34,7 +34,8 @@ val repositoryModule = module {
     single <IUserSignInRepo> { UserSignInRepo(firebase = get()) }
     single <IUserRegistrationRepo> { UserRegistrationRepo(firebase = get()) }
     single <IEducationalInstitutionsRepo> { EducationalInstitutionsRepo(firebaseSource = get()) }
-    single <IProgrammeRepo> { ProgrammeRepo(firebaseSource = get()) }
+    single <IProgrammeCatalogRepo> { ProgrammeCatalogRepo(firebaseSource = get()) }
+    single <IProgrammeApplicationRepo> { ProgrammeApplicationRepo(firebaseSource = get(), catalog = get()) }
     single <IAdminRepo> { AdminRepo(firebaseSource = get())}
     single <IStatusRepo> { StatusRepo(firebaseSource = get()) }
 }
@@ -42,7 +43,7 @@ val repositoryModule = module {
 val useCaseModule = module {
     factory<IEducationalInstitutions> { EducationalInstitutionsImpl(repository = get()) }
     factory<IUser> { UserImpl(repository = get()) }
-    factory<IProgramme> { ProgrammeImpl(repository = get()) }
+    factory<IProgramme> { ProgrammeImpl(catalog = get(), application = get()) }
     factory<IAdmin> { AdminImpl(repository = get()) }
     factory<IStatus> { StatusImpl(repository = get()) }
 }
