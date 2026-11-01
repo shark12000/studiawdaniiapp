@@ -2,28 +2,15 @@ package com.example.studiawdaniiapp.data.repository
 
 import com.example.studiawdaniiapp.data.firebase.FirebaseSource
 import com.example.studiawdaniiapp.domain.models.*
-import com.example.studiawdaniiapp.domain.repository.IProgrammeRepo
+import com.example.studiawdaniiapp.domain.repository.IProgrammeApplicationRepo
+import com.example.studiawdaniiapp.domain.repository.IProgrammeCatalogRepo
 import kotlinx.coroutines.tasks.await
 
-class ProgrammeRepo(private val firebaseSource: FirebaseSource) : IProgrammeRepo {
-
-    override suspend fun getProgrammesByUniversityID(universityID: String): Resource<List<Programme>> {
-        return try {
-            val list: MutableList<Programme> = mutableListOf()
-            val col = firebaseSource.getFirebaseFirestoreCollection()
-                .collection("junction_programme_university")
-                .whereEqualTo("universityID", universityID)
-                .get().await()
-            for (document in col) {
-                val programmeID = document.getString("programmeID")!!
-                val programme = getProgrammeByID(programmeID)
-                list.add(programme)
-            }
-            Resource.Success(list)
-        } catch (e: Exception) {
-            Resource.Failure(e.message.toString())
-        }
-    }
+/** A student's application: selected programmes, and sending them for review. */
+class ProgrammeApplicationRepo(
+    private val firebaseSource: FirebaseSource,
+    private val catalog: IProgrammeCatalogRepo
+) : IProgrammeApplicationRepo {
 
     override suspend fun getProgrammesByUserID(): Resource<List<Programme>> {
         return try {
@@ -34,7 +21,7 @@ class ProgrammeRepo(private val firebaseSource: FirebaseSource) : IProgrammeRepo
                 .get().await()
             for (document in col) {
                 val programmeID = document.getString("programmeID")!!
-                val programme = getProgrammeByID(programmeID)
+                val programme = catalog.getProgrammeByID(programmeID)
                 list.add(programme)
             }
             Resource.Success(list)
@@ -113,19 +100,5 @@ class ProgrammeRepo(private val firebaseSource: FirebaseSource) : IProgrammeRepo
             .await()
         val count = result.size()
         return count < 1
-    }
-
-    private suspend fun getProgrammeByID(programmeID: String): Programme {
-        val data = firebaseSource.getFirebaseFirestoreCollection().collection("progrmmes")
-            .document(programmeID).get().await()
-        return Programme(
-            programmeID = programmeID,
-            programmeName = data.getString("programmeName")!!,
-            city = data.getString("programmeCity")!!,
-            universityID = data.getString("universityID")!!,
-            description = data.getString("description")!!,
-            programmeLength = data.getString("programmeLength")!!,
-            programmeType = data.getString("programmeType")!!
-        )
     }
 }

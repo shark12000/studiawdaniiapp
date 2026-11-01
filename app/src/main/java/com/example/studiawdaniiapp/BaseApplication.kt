@@ -19,14 +19,7 @@ class BaseApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BaseApplication)
-            modules(
-                listOf(
-                    repositoryModule,
-                    viewModelModule,
-                    firebaseModule,
-                    useCaseModule
-                )
-            )
+            modules(appModules)
         }
     }
 

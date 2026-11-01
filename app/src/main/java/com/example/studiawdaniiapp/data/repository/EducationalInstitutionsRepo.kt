@@ -1,12 +1,12 @@
 package com.example.studiawdaniiapp.data.repository
 
+import com.example.studiawdaniiapp.data.firebase.FirebaseSource
 import com.example.studiawdaniiapp.domain.models.EducationalInstitution
 import com.example.studiawdaniiapp.domain.models.Resource
 import com.example.studiawdaniiapp.domain.repository.IEducationalInstitutionsRepo
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class EducationalInstitutionsRepo : IEducationalInstitutionsRepo {
+class EducationalInstitutionsRepo(private val firebaseSource: FirebaseSource) : IEducationalInstitutionsRepo {
 
     companion object{
         private const val UNIVERSITY_COLLECTION = "university_info"
@@ -16,7 +16,7 @@ class EducationalInstitutionsRepo : IEducationalInstitutionsRepo {
 
     override suspend fun getEducationalInstitutionsDB(): Resource<MutableList<EducationalInstitution>> {
         val list = mutableListOf<EducationalInstitution>()
-        val db = FirebaseFirestore.getInstance().collection(UNIVERSITY_COLLECTION).get().await()
+        val db = firebaseSource.getFirebaseFirestoreCollection().collection(UNIVERSITY_COLLECTION).get().await()
         for (document in db) {
             val educationalInstitutionName = document.getString(UNIVERSITY_NAME)!!
             val description = document.getString(UNIVERSITY_DESCRIPTION)!!
